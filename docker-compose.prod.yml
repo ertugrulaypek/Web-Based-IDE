@@ -1,0 +1,62 @@
+version: "3.7"
+services:
+  discovery-service:
+    image: gitlab.lrz.de:5005/ase20-group5-8/onlineide/discovery-service:latest
+    restart: on-failure
+    ports:
+      - 8761:8761
+  gateway-service:
+    image: gitlab.lrz.de:5005/ase20-group5-8/onlineide/gateway-service:latest
+    restart: on-failure
+    depends_on:
+      - discovery-service
+    environment:
+      - EUREKA_SERVER=http://discovery-service:8761/eureka
+    ports:
+      - 80:8000
+  ui-service:
+    image: gitlab.lrz.de:5005/ase20-group5-8/onlineide/ui-service:latest
+    restart: on-failure
+    depends_on:
+      - discovery-service
+    environment:
+      - EUREKA_SERVER=http://discovery-service:8761/eureka
+    ports:
+      - 8082:8082
+  darkmode-service:
+    image: gitlab.lrz.de:5005/ase20-group5-8/onlineide/darkmode-service:latest
+    restart: on-failure
+    depends_on:
+      - discovery-service
+    environment:
+      - EUREKA_SERVER=http://discovery-service:8761/eureka
+    ports:
+      - 8083:8083
+  compiler-service:
+    image: gitlab.lrz.de:5005/ase20-group5-8/onlineide/compiler-service:latest
+    restart: on-failure
+    depends_on:
+      - discovery-service
+    environment:
+      - EUREKA_SERVER=http://discovery-service:8761/eureka
+    ports:
+      - 8081:8081
+  project-service:
+    image: gitlab.lrz.de:5005/ase20-group5-8/onlineide/project-service:latest
+    restart: on-failure
+    depends_on:
+      - postgresql-db
+      - discovery-service
+    environment:
+      - EUREKA_SERVER=http://discovery-service:8761/eureka
+      - DB_JDBC_URL=jdbc:postgresql://postgresql-db:5432/onlineide-db?user=onlineide-user&password=onlineide-db-password
+    ports:
+      - 8080:8080
+  postgresql-db:
+    image: postgres:9.6
+    environment:
+      - POSTGRES_DB=onlineide-db
+      - POSTGRES_PASSWORD=onlineide-db-password
+      - POSTGRES_USER=onlineide-user
+    ports:
+      - 5432:5432

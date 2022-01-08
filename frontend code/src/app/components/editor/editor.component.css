@@ -1,0 +1,48 @@
+
+mat-sidenav-container {
+  height: 100%;
+}
+
+mat-sidenav, mat-sidenav-content {
+  padding-top: 16px;
+}
+mat-list-option:hover{
+  color: dimgrey;
+  cursor: pointer;
+}
+
+mat-sidenav {
+  background-color: #333333;
+  width: 200px;
+  padding-left: 5px;
+}
+ngx-monaco-editor {
+  position: relative;
+  height: 70%;
+}
+p, .mat-list-item-color, h2, h3 {
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: lighter;
+
+}
+mat-selection-list{
+  padding-left: 20px;
+}
+
+.monaco {
+  height: 650px;
+}
+
+button {
+  margin: 3px;
+}
+
+.logoutButton {
+  color: white;
+  background-color: darkgray;
+}
+.mat-menu-hidden{
+  overflow: hidden !important;
+  max-width: none !important;
+}

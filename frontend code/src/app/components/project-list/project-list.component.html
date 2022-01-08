@@ -1,0 +1,46 @@
+<button mat-mini-fab class="logoutButton" (click)="logout()">
+  <mat-icon>logout</mat-icon>
+</button>
+<h2>Project Management</h2>
+<button mat-raised-button color="primary" (click)="createProject()" class="createProjectButton">Add Project</button>
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+  <!--- Note that these columns can be defined in any order.
+        The actual rendered columns are set as a property on the row definition" -->
+
+  <!-- ID Column -->
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef> ID </th>
+    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef> Name </th>
+    <td mat-cell *matCellDef="let element">
+      <input (click)="setOldProjectName(element)" [(ngModel)]="element.name" (change) ="updateProjectName(element)" >
+    </td>
+  </ng-container>
+  <!-- Users Column -->
+  <ng-container matColumnDef="user">
+    <th mat-header-cell *matHeaderCellDef style="padding: 10px"> Users </th>
+    <td mat-cell *matCellDef="let element" style="padding-left: 10px"> {{element.userIds.length}} </td>
+  </ng-container>
+
+  <!-- Action Column -->
+  <ng-container matColumnDef="action" >
+    <th mat-header-cell *matHeaderCellDef> <div>Action</div> </th>
+    <td mat-cell *matCellDef="let element">
+      <button mat-raised-button (click)="sendProject(element)"  routerLink="/editor/{{ element.id }}">Open</button>
+      <button mat-raised-button color="accent" (click)="deleteProject(element)" >Delete</button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns" class="header-color"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+
+<!-- Copyright 2020 Google LLC. All Rights Reserved.
+    Use of this source code is governed by an MIT-style license that
+    can be found in the LICENSE file at http://angular.io/license -->

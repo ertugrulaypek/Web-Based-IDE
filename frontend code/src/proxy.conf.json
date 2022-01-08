@@ -1,0 +1,46 @@
+{
+  "/project": {
+  "target": "http://localhost:8000",
+    "secure": false
+  },
+  "/project/allProjects": {
+    "target": "http://localhost:8000",
+    "secure": false
+  },
+  "/project/source/getAllFiles": {
+    "target": "http://localhost:8000",
+    "secure": false
+  },
+  "/project/source": {
+    "target": "http://localhost:8000",
+    "secure": false
+  },
+  "/project/source/content": {
+    "target": "http://localhost:8000",
+    "secure": false
+  },
+  "/compile": {
+    "target": "http://localhost:8000",
+    "secure": false
+  },
+  "/dark-mode": {
+    "target": "http://localhost:8000",
+    "secure": false
+  },
+  "/authenticated": {
+    "target": "http://localhost:8000",
+    "secure": false
+  },
+  "/user": {
+    "target": "http://localhost:8000",
+    "secure": false
+  },
+  "/login": {
+    "target": "http://localhost:8000",
+    "secure": false
+  },
+  "/logout": {
+    "target": "http://localhost:8000",
+    "secure": false
+  }
+}

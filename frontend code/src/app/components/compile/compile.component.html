@@ -1,0 +1,13 @@
+<mat-tab-group>
+  <mat-tab label="Output">
+    <div *ngIf="sourceCode !== null">
+      <div *ngIf="sourceCode.compilable">
+        Successfully compiled...
+      </div>
+      <div *ngIf="!sourceCode.compilable">
+        {{sourceCode.stderr}}
+      </div>
+    </div>
+  </mat-tab>
+
+</mat-tab-group>

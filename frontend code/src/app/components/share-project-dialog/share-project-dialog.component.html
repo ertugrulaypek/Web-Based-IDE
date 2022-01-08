@@ -1,0 +1,15 @@
+<h2 mat-dialog-title>Share Project</h2>
+<mat-dialog-content>
+  <form class="example-form">
+    <mat-form-field class="example-full-width">
+      <mat-label>username</mat-label>
+      <input matInput [(ngModel)]="username" name="usernameForm">
+    </mat-form-field>
+  </form>
+
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close color="warn">Cancel</button>
+  <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
+  <button mat-button [mat-dialog-close]="username" >Ok</button>
+</mat-dialog-actions>

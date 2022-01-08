@@ -1,0 +1,53 @@
+<mat-sidenav-container>
+  <mat-sidenav mode="side" opened>
+    <h2>Online IDE</h2>
+    <button mat-raised-button color="primary" (click)="goBack()">
+     < Back
+    </button>
+    <button mat-mini-fab class="logoutButton" (click)="logout()">
+      <mat-icon>logout</mat-icon>
+    </button>
+    <h3>{{project.name}}</h3>
+    <mat-selection-list [multiple]="false">
+      <mat-list-option  *ngFor="let file of projectFiles" (click)="fileClicked(file.fileName, file.fileId)"
+                     (contextmenu)="onContextMenu($event, file)" class="mat-list-item-color"
+                     (change)=disableCompile() >
+        {{ file.fileName }}
+      </mat-list-option>
+    </mat-selection-list>
+    <div style="visibility: hidden; position: fixed"
+         [style.left]="contextMenuPosition.x"
+         [style.top]="contextMenuPosition.y"
+         [matMenuTriggerFor]="contextMenu">
+    </div>
+    <mat-menu #contextMenu="matMenu" class="mat-menu-hidden">
+      <ng-template matMenuContent let-item="item">
+        <button mat-menu-item (click)="onContextMenuRename(item)">Rename</button>
+        <button mat-menu-item (click)="onContextMenuDelete(item)">Delete</button>
+      </ng-template>
+    </mat-menu>
+    <button mat-raised-button color="warn" (click)="createSourceFileDialog()">New File</button>
+    <button mat-raised-button color="warn" (click)="createShareProjectDialog()">Share Project</button>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <div class="monaco">
+      <button mat-raised-button (click)="updateSourceFileContent()">Save</button>
+      <button mat-raised-button color="primary" (click)="compile()" [disabled]="disableCompiler">Compile</button>
+        <ngx-monaco-editor *ngIf="fileSelected"
+          [options]="editorOptions"
+          [(ngModel)]="code" (input)=disableCompile()>
+        </ngx-monaco-editor>
+      <app-compile *ngIf="fileSelected"></app-compile>
+    </div>
+    <div>
+
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+
+
+
+
+
+

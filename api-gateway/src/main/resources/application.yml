@@ -1,0 +1,50 @@
+spring:
+  application:
+    name: gateway-service
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_SERVER:http://localhost:8761/eureka}
+server:
+  port: ${PORT:8000}
+zuul:
+  host:
+    socket-timeout-millis: 20000
+    connect-timeout-millis: 20000
+  routes:
+    ui:
+      path: /ui/**
+      serviceId: ui-service
+      stripPrefix: false
+    project:
+      path: /project/**
+      serviceId: project-service
+      stripPrefix: false
+      sensitiveHeaders: Cookie,Set-Cookie # Authentication
+    compile:
+      path: /compile/**
+      serviceId: compiler-service
+      stripPrefix: false
+    darkmode:
+      path: /dark-mode/**
+      serviceId: darkmode-service
+      stripPrefix: false
+ribbon:
+  ConnectTimeout: 10000
+  ReadTimeout: 10000
+security:
+  oauth2:
+    client:
+      clientId: 0948b2483d9f6ea40a5b8245686267d929651ad3f7dc755e0fc77c613afea808
+      clientSecret: 92e611cbc748a2d60bb90b2044bf0ce57ef82f53c6a2e10f43509e83be5c2c2d
+      accessTokenUri: https://gitlab.lrz.de/oauth/token
+      userAuthorizationUri: https://gitlab.lrz.de/oauth/authorize
+      scope:
+        - read_user
+        - api
+    resource:
+      userInfoUri: https://gitlab.lrz.de/api/v4/user
+proxy:
+  auth:
+    routes:
+      project-service: oauth2

@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: project-service
+  profiles:
+    active: prod
+  jpa:
+    hibernate:
+      ddl-auto: update # `ddl-auto` property is used to automatically create the tables based on the entity classes
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_SERVER:http://localhost:8761/eureka}
+server:
+  port: 8080
+
+security:
+  oauth2:
+    client:
+      clientId: c19883bcea5e625ee02d3c87d96b7fcb35f69e45b2d2951e03cc2fc30896b010
+      clientSecret: dd6a347a7579b2e00facda520ae9e485f2af994ae6e9efd4e0edcb6ee57e48f5
+      accessTokenUri: https://gitlab.lrz.de/oauth/token
+      userAuthorizationUri: https://gitlab.lrz.de/oauth/authorize
+      scope:
+        - read_user
+        - api
+    resource:
+      userInfoUri: https://gitlab.lrz.de/api/v4/user
+proxy:
+  auth:
+    routes:
+      project-service: oauth2
